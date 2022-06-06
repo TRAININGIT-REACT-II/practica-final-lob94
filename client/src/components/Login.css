@@ -1,0 +1,14 @@
+.label{
+    width: 30%;
+}
+
+.col20{
+    width: 20%;
+    display: inline-block;
+}
+
+.col80{
+    width: 80%;
+    display: inline-block;
+    margin-bottom: 10px;
+}
