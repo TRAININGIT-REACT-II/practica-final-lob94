@@ -2,8 +2,8 @@ import { Fragment, useContext } from 'react';
 import { NavLink } from "react-router-dom";
 import ThemeToggle from '../../components/ThemeToggle';
 import "../css/Header.css";
-import "../../components/CommonCSS.css";
-import User from '../../context/User';
+import "../css/CommonCSS.css";
+import User from '../context/User';
 
 const Header = () => {
 
@@ -37,7 +37,7 @@ const Header = () => {
                 </div>
             </li>
             <li className='nav-right'>
-                <div className='nav-right'>
+                <div className='nav-right vertical-center'>
                     <ThemeToggle/>
                 </div>
             </li>

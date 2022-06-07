@@ -5,6 +5,15 @@ const insertCredentials = () => {
     const [userName, setUserName] = useState(""); 
     const [password, setPassword] = useState(""); 
 
+    const [userNameError, setUserNameError] = useState({
+        isError : false,
+        message : ""
+    }); 
+    const [passwordError, setPasswordError] = useState({
+        isError : false,
+        message : ""
+    });  
+
     const updateUserName = (e) => {
         const {value} = e.target;
         setUserName(value);
@@ -18,8 +27,12 @@ const insertCredentials = () => {
     return {
         userName: userName,
         password: password,
+        userNameError: userNameError,
+        passwordError: passwordError,
         updateUserName,
-        updatePassword
+        updatePassword,
+        setUserNameError,
+        setPasswordError
     }
 
 }

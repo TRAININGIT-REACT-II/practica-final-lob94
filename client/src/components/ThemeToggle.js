@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { useEffect } from "react";
-import Theme from "../context/Theme";
+import Theme from "../common/context/Theme";
+import '../common/css/CommonCSS.css';
 import THEMES from "../utils/THEMES";
-import './CommonCSS.css';
 
 const ThemeToggle = ()  => {
 

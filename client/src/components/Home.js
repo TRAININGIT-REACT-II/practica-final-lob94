@@ -3,16 +3,6 @@ import { useEffect } from "react";
 
 const Home = ()  => {
 
-    const [theme, setTheme] = useState(false);
-
-    const changeTheme = () => {
-        setTheme(!theme);
-    }
-
-    useEffect(() => {
-        console.log(theme);
-    })
-
 
     return (
         <>

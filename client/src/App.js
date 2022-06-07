@@ -1,14 +1,14 @@
-import Login from "./components/Login";
-import Register from "./components/Register";
+import Login from "./login/components/Login";
+import Register from "./login/components/Register";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./components/Home";
 import Header from "./common/components/Header";
-import User from "./context/User";
-import Theme from "./context/Theme";
 import MyHome from "./components/MyHome";
 import THEMES from "./utils/THEMES";
 import { useState } from "react";
 import PrivateRoute from "./components/PrivateRoute";
+import User from "./common/context/User";
+import Theme from "./common/context/Theme";
 
 // Componente principal de la aplicación.
 const App = () => {

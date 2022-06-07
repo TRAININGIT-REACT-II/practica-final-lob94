@@ -120,3 +120,7 @@ input:checked + .slider:before {
     text-decoration: none;
     color: white;
 }
+
+.formError {
+    color:red;
+}
