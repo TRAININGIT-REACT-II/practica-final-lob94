@@ -17,6 +17,10 @@ const Header = () => {
         localStorage.setItem("userName", "");
     }
 
+    const dummy = (e) => {
+        e.preventDefault();
+    }
+
     return(
         <ul>
             <li>
@@ -28,14 +32,26 @@ const Header = () => {
             </li> :
             <Fragment/>
             }
-            <li className='nav-right'>
-                <div className='nav-right'>
-                    {signIn ?
-                        <NavLink to="/" className={"nav-link"} onClick={signOut}>{userName}</NavLink> :
+            
+            {signIn ?
+                <Fragment>
+                    <li className='nav-right'>
+                        <div className='nav-right'>
+                            <NavLink to="/" className={"nav-link"} onClick={signOut}>Salir</NavLink>
+                        </div>
+                    </li>
+                    <li className='nav-right'>
+                        <div className='nav-right'>
+                            <NavLink to="/" className="nav-link otro" onClick={dummy}>¡Hola {userName}!</NavLink>
+                        </div>
+                    </li>
+                </Fragment> :
+                <li className='nav-right'>
+                    <div className='nav-right'>
                         <NavLink to="/login" className="nav-link">Identificarse</NavLink>
-                    }
-                </div>
-            </li>
+                    </div>
+                </li>
+            }
             <li className='nav-right'>
                 <div className='nav-right vertical-center'>
                     <ThemeToggle/>

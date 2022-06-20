@@ -8,7 +8,11 @@ import { useEffect, useState } from "react";
 import PrivateRoute from "./components/PrivateRoute";
 import User from "./common/context/User";
 import Theme from "./common/context/Theme";
-import MyHome from './notelist/components/MyHome'
+import MyHome from './notelist/components/MyHome';
+import { createStore } from "redux";
+import userReducer from "./reducers/userReducer";
+import { Provider } from "react-redux";
+import Note from "./note/components/Note";
 
 // Componente principal de la aplicación.
 const App = () => {
@@ -24,6 +28,8 @@ const App = () => {
     return userName || "";
   });
 
+  const store = createStore(userReducer);
+
   useEffect(() => {
     if(theme === THEMES.dark){
       document.body.className = "dark";
@@ -34,27 +40,32 @@ const App = () => {
   
   
   return(
-    <User.Provider value={{ signIn, setSignIn, userName, setUserName}}>
-      <Theme.Provider value={{theme, setTheme}}>
-        <Router>
-          <Header/>
-          <Switch>
-            <Route path="/" exact>
-              <Home/>
-            </Route>
-            <Route path="/login">
-              <Login/>
-            </Route>
-            <Route path="/signup">
-              <Register/>
-            </Route>
-            <PrivateRoute path="/home">
-              <MyHome/>
-            </PrivateRoute>
-          </Switch>
-        </Router>
-      </Theme.Provider>
-    </User.Provider>
+    <Provider store={store}>
+      <User.Provider value={{ signIn, setSignIn, userName, setUserName}}>
+        <Theme.Provider value={{theme, setTheme}}>
+          <Router>
+            <Header/>
+            <Switch>
+              <Route path="/" exact>
+                <Home/>
+              </Route>
+              <Route path="/login">
+                <Login/>
+              </Route>
+              <Route path="/signup">
+                <Register/>
+              </Route>
+              <PrivateRoute path="/home">
+                <MyHome/>
+              </PrivateRoute>
+              <PrivateRoute path="/create-note">
+                <Note/>              
+              </PrivateRoute>
+            </Switch>
+          </Router>
+        </Theme.Provider>
+      </User.Provider>
+    </Provider>
 )};
 
 export default App;

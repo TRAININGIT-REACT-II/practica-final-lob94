@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import Theme from "../../common/context/Theme";
 import OrderBy from "../context/OrderBy";
 import View from "../context/View";
@@ -8,6 +9,8 @@ import '../css/NoteList.css';
 const FilterBar = () => {
 
     const {view, setView} = useContext(View);
+
+    const history = useHistory();
 
     const {theme, setTheme} = useContext(Theme);
 
@@ -29,6 +32,10 @@ const FilterBar = () => {
         setOrderDirection(value);
     }
 
+    const createNote = () => {
+        history.push("/create-note");
+    }
+
     return (
         <div className="row">
             <span>Ordenar por: </span>
@@ -42,6 +49,8 @@ const FilterBar = () => {
                 <option value="1">Descendente</option>
             </select>
             <button onClick={changeView} className={theme ? "buttonView-dark" : "buttonView-light"}>Cambiar vista</button>
+
+            <button onClick={createNote} className={theme ? "buttonView-dark right " : "buttonView-light right " }>Crear nota</button>
         </div>
     )
 

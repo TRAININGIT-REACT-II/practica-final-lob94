@@ -106,3 +106,7 @@ tr.listItem:hover {
 .bodyList{
     width: 100%;
 }
+
+.right{
+    float: right;
+}
