@@ -1,9 +1,9 @@
 import { Fragment, useContext } from 'react';
 import { NavLink } from "react-router-dom";
-import ThemeToggle from '../../components/ThemeToggle';
 import "../css/Header.css";
 import "../css/CommonCSS.css";
 import User from '../context/User';
+import ThemeToggle from './ThemeToggle';
 
 const Header = () => {
 

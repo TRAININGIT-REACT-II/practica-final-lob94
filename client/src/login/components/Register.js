@@ -3,9 +3,11 @@ import insertCredentials from "../hooks/insertCredentials"
 import "../Login.css";
 import "../../common/css/CommonCSS.css";
 import { Link } from "react-router-dom";
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import User from "../../common/context/User";
 import { useHistory } from "react-router-dom";
+import Theme from "../../common/context/Theme";
+import useApi from "../../common/hooks/useApi";
 
 const Register = () => {
 
@@ -25,20 +27,44 @@ const Register = () => {
 
     const history = useHistory();
 
+    const request = useApi("/api/register", "", {}, false);
+
+    let token;
+
+    if(request.data != null){
+        token = request.data.token;
+    }
+
     const onSubmit = (e) => {
 
         e.preventDefault();
         clearErrors();
 
         if(!checkSignup()){
-            setSignIn(true);
-            setUserName(credentials.userName);
+            request.updateParams({
+                method: "POST",
+                headers: {"Content-type": "application/json; charset=UTF-8"},
+                body: JSON.stringify({
+                    username: credentials.userName.trim(),
+                    password: credentials.password.trim(),
 
-            localStorage.setItem("signIn", true);
-            localStorage.setItem("userName", credentials.userName);
-            history.push("/");
+                })
+            });
+            request.perform();
         }
     }
+
+    useEffect(() => {
+        if(request.data != null){
+            console.log(request.data);
+            setSignIn(true);
+            setUserName(request.data.username);
+
+            localStorage.setItem("signIn", true);
+            localStorage.setItem("userName", request.data.username);
+            history.push("/");
+        }
+    }, [request.data]);
 
     const clearErrors = () => {
         credentials.setUserNameError({
@@ -90,11 +116,20 @@ const Register = () => {
             });
             errorForm = true;
         }
+
+        console.log(credentials.password, passwordcheck);
         return errorForm;
     }
 
+    const {theme, setTheme} = useContext(Theme);
+
+    const updatePasswordCheck = (e) => {
+        const {value} = e.target;
+        setPasswordCheck(value);
+    };
+
     return(
-    <section className="body-dark">
+    <section className={theme ? "body-dark" : "body"}>
         <div className="row rowForm">
             <h1>Registro de usuario</h1>
         </div>
@@ -104,7 +139,7 @@ const Register = () => {
                     <span >Usuario: </span>
                 </div>
                 <div className="col80">
-                    <input id="user" type="text" className="input-text-dark" onChange={credentials.updateUserName}></input>
+                    <input id="user" type="text" className={theme ? "input-text-dark" : "input"} onChange={credentials.updateUserName}></input>
                 </div>
                 {credentials.userNameError.isError ?
                     <span className="formError">{credentials.userNameError.message}</span>
@@ -117,7 +152,7 @@ const Register = () => {
                     <span >Contraseña: </span>
                 </div>
                 <div className="col80">
-                    <input id="password" type="password" className="input-text-dark" onChange={credentials.updatePassword}></input>
+                    <input id="password" type="password" className={theme ? "input-text-dark" : "input"} onChange={credentials.updatePassword}></input>
                 </div>
                 {credentials.passwordError.isError ?
                     <span className="formError">{credentials.passwordError.message}</span>
@@ -130,7 +165,7 @@ const Register = () => {
                     <span >Repetir contraseña: </span>
                 </div>
                 <div className="col80">
-                    <input id="password2" type="password" className="input-text-dark" onChange={setPasswordCheck}></input>
+                    <input id="password2" type="password" className={theme ? "input-text-dark" : "input"} onChange={updatePasswordCheck}></input>
                 </div>
                 {passwordCheckError.isError ?
                     <span className="formError">{passwordCheckError.message}</span>
@@ -145,7 +180,7 @@ const Register = () => {
 
             <div className="row">
                 <div >
-                    <button type="submit" className="button-dark">Registrarse</button>
+                    <button type="submit" className={theme ? "button-dark" : "button-light"}>Registrarse</button>
                 </div>
             </div>
         </form>

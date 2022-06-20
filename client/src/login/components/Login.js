@@ -5,6 +5,8 @@ import "../../common/css/CommonCSS.css";
 import User from "../../common/context/User";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import Theme from "../../common/context/Theme";
+import useApi from "../../common/hooks/useApi";
 
 const Login = () => {
 
@@ -16,19 +18,45 @@ const Login = () => {
 
     const history = useHistory();
 
+    const {theme, setTheme} = useContext(Theme);
+
+    const request = useApi("/api/login", "", {}, false);
+
+    let token;
+
+    if(request.data != null){
+        token = request.data.token;
+    }
+
+    useEffect(() => {
+        if(request.data != null){
+            setSignIn(true);
+            setUserName(request.data.username);
+
+            localStorage.setItem("signIn", true);
+            localStorage.setItem("userName", request.data.username);
+
+            history.push("/");
+        }
+    }, [request.data]);
+
     const onSubmit = (e) => {
 
         e.preventDefault();
         clearErrors();
 
         if(!checkSignup()){
-            setSignIn(true);
-            setUserName(credentials.userName);
+            request.updateParams({
+                method: "POST",
+                headers: {"Content-type": "application/json; charset=UTF-8"},
+                body: JSON.stringify({
+                    username: credentials.userName.trim(),
+                    password: credentials.password.trim(),
 
-            localStorage.setItem("signIn", true);
-            localStorage.setItem("userName", credentials.userName);
-
-            history.push("/");
+                })
+            });
+            request.perform();
+            
         }
     };
 
@@ -67,7 +95,7 @@ const Login = () => {
     }
 
     return(
-    <section className="body">
+    <section className={theme ? "body-dark" : "body"}>
         <div className="row rowForm">
             <h1>Identificación</h1>
         </div>
@@ -77,7 +105,7 @@ const Login = () => {
                     <span >Usuario: </span>
                 </div>
                 <div className="col80">
-                    <input id="user" type="text" className="input" onChange={credentials.updateUserName}></input>
+                    <input id="user" type="text" className={theme ? "input-text-dark" : "input"} onChange={credentials.updateUserName}></input>
                 </div>
                 {credentials.userNameError.isError ?
                     <span className="formError">{credentials.userNameError.message}</span>
@@ -89,7 +117,7 @@ const Login = () => {
                     <span >Contraseña: </span>
                 </div>
                 <div className="col80">
-                    <input id="password" type="password" className="input" onChange={credentials.updatePassword}></input>
+                    <input id="password" type="password" className={theme ? "input-text-dark" : "input"} onChange={credentials.updatePassword}></input>
                 </div>
                 {credentials.passwordError.isError ?
                     <span className="formError">{credentials.passwordError.message}</span>
@@ -103,7 +131,7 @@ const Login = () => {
             </div>
 
             <div className="row">
-                    <button className="button-light" type="submit">Identificarse</button>
+                    <button className={theme ? "button-dark" : "button-light"} type="submit">Identificarse</button>
             </div>
         </form>
     </section>

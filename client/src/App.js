@@ -3,12 +3,12 @@ import Register from "./login/components/Register";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./components/Home";
 import Header from "./common/components/Header";
-import MyHome from "./components/MyHome";
 import THEMES from "./utils/THEMES";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PrivateRoute from "./components/PrivateRoute";
 import User from "./common/context/User";
 import Theme from "./common/context/Theme";
+import MyHome from './notelist/components/MyHome'
 
 // Componente principal de la aplicación.
 const App = () => {
@@ -23,30 +23,38 @@ const App = () => {
     const userName = localStorage.getItem("userName");
     return userName || "";
   });
+
+  useEffect(() => {
+    if(theme === THEMES.dark){
+      document.body.className = "dark";
+    }else{
+      document.body.className = "light";
+    }
+  }, [theme]);
+  
   
   return(
-  <User.Provider value={{ signIn, setSignIn, userName, setUserName}}>
-    <Theme.Provider value={{theme, setTheme}}>
-      <Router>
-        <Header/>
-        <Switch>
-          <Route path="/" exact>
-            <Home/>
-          </Route>
-          <Route path="/login">
-            <Login/>
-          </Route>
-
-          <Route path="/signup">
-            <Register/>
-          </Route>
-          <PrivateRoute path="/home">
-            <MyHome/>
-          </PrivateRoute>
-        </Switch>
-      </Router>
-    </Theme.Provider>
-  </User.Provider>
+    <User.Provider value={{ signIn, setSignIn, userName, setUserName}}>
+      <Theme.Provider value={{theme, setTheme}}>
+        <Router>
+          <Header/>
+          <Switch>
+            <Route path="/" exact>
+              <Home/>
+            </Route>
+            <Route path="/login">
+              <Login/>
+            </Route>
+            <Route path="/signup">
+              <Register/>
+            </Route>
+            <PrivateRoute path="/home">
+              <MyHome/>
+            </PrivateRoute>
+          </Switch>
+        </Router>
+      </Theme.Provider>
+    </User.Provider>
 )};
 
 export default App;

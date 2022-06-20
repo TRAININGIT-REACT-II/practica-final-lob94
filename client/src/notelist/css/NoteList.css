@@ -1,0 +1,108 @@
+.notePreview{
+    height: 250px;
+    width: 250px;
+    border-style: outset;
+    background-color: #FFFF99;
+    color: black;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+li.notePreview:hover{
+    background-color: #E4E48C;
+}
+
+.notePreview-dark{
+    height: 250px;
+    width: 250px;
+    border-style: outset;
+    background-color: darkgrey;
+    color: white;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+li.notePreview-dark:hover{
+    background-color: #7C7C7C;
+}
+
+.rowListNote{
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: white;
+    height: 1000px;
+}
+
+.rowListNote-dark{
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: black;
+    height: 1000px;
+}
+
+.tableList{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tableHeader{
+    width: 25%;
+}
+
+.listItem{
+    width: 100%;
+    cursor: pointer;
+    height: 30px;
+}
+
+.listItem-Text{
+    text-align: center;
+}
+
+tr.listItem:hover {
+    background-color: #DAF3FF;
+}
+
+.selectOrder {
+    background: white;
+    overflow: hidden;
+    border-radius: 12px;
+ }
+
+ .selectOrder-dark {
+    background: darkgrey;
+    overflow: hidden;
+    border-radius: 12px;
+ }
+
+ .buttonView-light{
+    color: white;
+    background-color: #00a2ff;
+    border: black;
+    cursor: pointer;
+    border-radius: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.buttonView-dark{
+    color: white;
+    background-color: darkgrey;
+    border: black;
+    cursor: pointer;
+    border-radius: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.bodyList-dark{
+    width: 100%;
+    background-color: black;
+    color: white;
+}
+
+.bodyList{
+    width: 100%;
+}
