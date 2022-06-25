@@ -4,7 +4,7 @@ import orderFunctions from "../hooks/orderFunctions";
 import { useContext } from "react";
 import Theme from "../../common/context/Theme";
 
-const ListFormat = ()  => {
+const ListFormat = ({noteList})  => {
 
     const {list} = orderFunctions();
 
@@ -22,7 +22,7 @@ const ListFormat = ()  => {
                     </tr>
                 </thead>
                 <tbody>
-                    {list.map((item) => {
+                    {noteList.map((item) => {
                         return <ListItemPreview object={item} key={item.key}/>
                     })}
                 </tbody>

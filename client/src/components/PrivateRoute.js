@@ -1,13 +1,14 @@
-import { useContext } from "react";
 import { Route, Redirect } from "react-router-dom"
-import User from "../common/context/User";
+import { useSelector } from "react-redux/es/exports";
 
 const PrivateRoute = ({children, ...others}) => {
 
-    const {signIn} = useContext(User);
+    const user = useSelector( (state)  => state);
+
+    console.log(isLogged);
 
     return <Route {...others} render={() => {
-        if(signIn){
+        if(user.isLogged){
             return children;
         }else{
             return <Redirect to="/login"/>;

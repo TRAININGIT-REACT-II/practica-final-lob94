@@ -6,7 +6,7 @@ const ListItemPreview = ({object}) => {
     const history = useHistory();
 
     const onClick = () => {
-        history.push("/nota");
+        history.push("/note/" + object.id);
     }
 
     return (

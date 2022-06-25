@@ -1,20 +1,26 @@
-import { Fragment, useContext } from 'react';
+import { Fragment, useContext, useEffect } from 'react';
 import { NavLink } from "react-router-dom";
 import "../css/Header.css";
 import "../css/CommonCSS.css";
 import User from '../context/User';
 import ThemeToggle from './ThemeToggle';
+import { login, logout } from "../../actions/actionTypes";
+import { useDispatch } from "react-redux/es/hooks/useDispatch";
+import { useSelector } from "react-redux/es/exports";
 
 const Header = () => {
 
-    const {signIn, setSignIn, userName, setUserName} = useContext(User);
+    const dispatch = useDispatch();
+
+    const user = useSelector((state) => state);
 
     const signOut = () => {
-        setSignIn(false);
-        setUserName("");
 
         localStorage.setItem("signIn", false);
         localStorage.setItem("userName", "");
+        localStorage.setItem("token", "");
+
+        dispatch(logout());
     }
 
     const dummy = (e) => {
@@ -26,14 +32,14 @@ const Header = () => {
             <li>
                 <NavLink to="/" className="nav-link">Notes</NavLink>
             </li>
-            {signIn ? 
+            {user.isLogged ? 
             <li>
                 <NavLink to="/home" className="nav-link">Home</NavLink>
             </li> :
             <Fragment/>
             }
             
-            {signIn ?
+            {user.isLogged ?
                 <Fragment>
                     <li className='nav-right'>
                         <div className='nav-right'>
@@ -42,7 +48,7 @@ const Header = () => {
                     </li>
                     <li className='nav-right'>
                         <div className='nav-right'>
-                            <NavLink to="/" className="nav-link otro" onClick={dummy}>¡Hola {userName}!</NavLink>
+                            <NavLink to="/" className="nav-link otro" onClick={dummy}>¡Hola {user.userName}!</NavLink>
                         </div>
                     </li>
                 </Fragment> :

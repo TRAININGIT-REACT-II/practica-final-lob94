@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import Theme from "../../common/context/Theme";
 import useApi from "../../common/hooks/useApi";
+import { login } from "../../actions/actionTypes";
+import { useDispatch } from "react-redux/es/hooks/useDispatch";
 
 const Login = () => {
 
@@ -22,6 +24,8 @@ const Login = () => {
 
     const request = useApi("/api/login", "", {}, false);
 
+    const dispatch = useDispatch();
+
     let token;
 
     if(request.data != null){
@@ -30,12 +34,15 @@ const Login = () => {
 
     useEffect(() => {
         if(request.data != null){
+            console.log("dispatch");
             setSignIn(true);
             setUserName(request.data.username);
 
             localStorage.setItem("signIn", true);
             localStorage.setItem("userName", request.data.username);
             localStorage.setItem("token", request.data.token);
+
+            dispatch(login({userName: request.data.username, isLogged: true, token: request.data.token}));
 
             history.push("/");
         }
@@ -53,7 +60,6 @@ const Login = () => {
                 body: JSON.stringify({
                     username: credentials.userName.trim(),
                     password: credentials.password.trim(),
-
                 })
             });
             request.perform();
