@@ -22,7 +22,7 @@ const useApi = (url, token, initialParams = {}, performOnMount = true) => {
                 setLoading(true);
             }
             fetch(
-                url, params
+                API_URL + url, params
                 ).then((res) => {
                     return res.json();
                 }).then((json) => {

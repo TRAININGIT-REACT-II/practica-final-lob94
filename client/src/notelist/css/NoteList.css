@@ -110,3 +110,11 @@ tr.listItem:hover {
 .right{
     float: right;
 }
+
+.textarea-none{
+    background-color: transparent;
+    background: transparent;
+    border: 0 none;
+    outline: none;
+    resize: none;
+}

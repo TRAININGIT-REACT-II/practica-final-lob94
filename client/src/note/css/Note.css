@@ -1,0 +1,15 @@
+.input-text-body{
+    width: 90%;
+    height: 500px;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.input-text-body-dark{
+    width: 90%;
+    height: 500px;
+    border: black;
+    border-radius: 4px;
+    background-color: darkgrey;
+    color: white;
+}

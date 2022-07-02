@@ -5,6 +5,9 @@ import Theme from "./common/context/Theme";
 import { Provider, useDispatch } from "react-redux";
 import store from "./store/store";
 import RouterManager from "./common/components/RouterManager";
+import ErrorBoundary from "./common/components/ErrorBoundary";
+import { useHistory } from "react-router-dom";
+import useBeforeRender from "./common/hooks/BeforeRender";
 
 // Componente principal de la aplicación.
 const App = () => {
@@ -18,7 +21,6 @@ const App = () => {
       document.body.className = "light";
     }
   }, [theme]);
-  
   
   return(
     <Provider store={store}>

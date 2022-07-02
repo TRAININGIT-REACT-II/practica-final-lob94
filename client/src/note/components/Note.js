@@ -1,9 +1,13 @@
 import { Fragment, useContext, useEffect, useState} from "react";
 import "../../common/css/CommonCSS.css";
+import "../css/Note.css";
 import Theme from "../../common/context/Theme";
 import useApi from "../../common/hooks/useApi";
 import { useSelector } from "react-redux/es/exports";
 import { useParams } from "react-router-dom";
+import NoteButtons from "./NoteButtons";
+import Modify from "../context/Modify";
+import useBeforeRender from "../../common/hooks/BeforeRender";
 
 const Note = () => {
 
@@ -12,15 +16,15 @@ const Note = () => {
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
 
-    const [readonly, setReadonly] = useState(true);
+    const {isModify, setIsModify} = useContext(Modify);
 
     const {theme, setTheme} = useContext(Theme);
 
-    const request = useApi("/api/notes", "", {}, false);
+    const request = useApi("/notes", "", {}, false);
 
     const user = useSelector((state) => state);
 
-    const requestConsulta = useApi("/api/notes/" + id, "", {}, false);;
+    const requestConsulta = useApi("/notes/" + id, "", {}, false);;
 
     const updateTitle = (e) => {
         const {value} = e.target;
@@ -69,11 +73,7 @@ const Note = () => {
         }
     }, [request.data]);
 
-    const getNote = () => {
-
-    }
-
-    useEffect(() => {
+    useBeforeRender(()=> {
         if(id){
 
             requestConsulta.updateParams({
@@ -85,8 +85,12 @@ const Note = () => {
             });
             requestConsulta.perform();
         }else{
-            setReadonly(false);
+            setIsModify(true);
         }
+    }, [])
+
+    useEffect(() => {
+       
     }, []);
 
     useEffect(() => {
@@ -100,15 +104,13 @@ const Note = () => {
     return (
         <section className={theme ? "body-dark" : "body"}>
         {id ? <h1>Modificar nota</h1> : <h1>Crear nota</h1>}
+        <NoteButtons id={id}/>
         <form onSubmit={onSubmit}>
             <div className="row rowForm">
-                <div className="col20">
-                    <span >Título: </span>
-                </div>
-                <div className="col80">
-                    {readonly ?
-                        <input id="title" type="text" className={theme ? "input-text-dark" : "input"} onChange={updateTitle} readOnly={true} value={title}></input>
-                        :<input id="title" type="text" className={theme ? "input-text-dark" : "input"} onChange={updateTitle} value={title}></input>
+                <div>
+                    {!isModify ?
+                        <input id="title" type="text" className={theme ? "input-text-dark" : "input"} onChange={updateTitle} readOnly={true} value={title} maxlength="60"></input>
+                        :<input id="title" type="text" className={theme ? "input-text-dark" : "input"} onChange={updateTitle} value={title} placeholder="Título" maxlength="60"></input>
                     }
                 </div>
                 {false ?
@@ -117,13 +119,10 @@ const Note = () => {
                 }
             </div>
             <div className="row rowForm">
-                <div className="col20">
-                    <span >Cuerpo: </span>
-                </div>
-                <div className="col80">
-                    {readonly ?
-                        <input id="body" type="text" className={theme ? "input-text-dark" : "input"} onChange={updateBody} readOnly={true} value={body}></input>
-                        :<input id="body" type="text" className={theme ? "input-text-dark" : "input"} onChange={updateBody} value={body}></input>
+                <div >
+                    {!isModify ?
+                        <textarea id="body" rows="10" className={theme ? "input-text-dark" : "input"} onChange={updateBody} readOnly={true} value={body} maxlength="1000"></textarea>
+                        :<textarea id="body" rows="10" className={theme ? "input-text-dark" : "input"} onChange={updateBody} value={body} placeholder="Cuerpo ..." maxlength="1000"></textarea>
                     }
                 </div>
                 {false ?

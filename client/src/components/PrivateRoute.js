@@ -5,8 +5,6 @@ const PrivateRoute = ({children, ...others}) => {
 
     const user = useSelector( (state)  => state);
 
-    console.log(isLogged);
-
     return <Route {...others} render={() => {
         if(user.isLogged){
             return children;

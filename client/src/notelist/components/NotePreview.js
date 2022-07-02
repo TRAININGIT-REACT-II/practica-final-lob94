@@ -15,9 +15,9 @@ const NotePreview = ({object}) => {
 
     return(
         <li className={theme ? "notePreview-dark" :  "notePreview"} onClick={onClick}>  
-            <h1>{object.title}</h1>
+            <p><strong>{object.title.length > 22 ? object.title.substring(0, 22) + " ...": object.title.substring(0, 22)}</strong></p>
             <div/>
-            <span>{object.title}</span>
+            <textarea className='textarea-none' rows={7} maxLength="130" value={object.content.length > 127 ? object.content.substring(0, 127) + " ...": object.content.substring(0, 127)} readOnly="true"></textarea>
         </li>
     );
 

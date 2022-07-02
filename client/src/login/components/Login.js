@@ -22,7 +22,7 @@ const Login = () => {
 
     const {theme, setTheme} = useContext(Theme);
 
-    const request = useApi("/api/login", "", {}, false);
+    const request = useApi("/login", "", {}, false);
 
     const dispatch = useDispatch();
 
@@ -112,7 +112,7 @@ const Login = () => {
                     <span >Usuario: </span>
                 </div>
                 <div className="col80">
-                    <input id="user" type="text" className={theme ? "input-text-dark" : "input"} onChange={credentials.updateUserName}></input>
+                    <input id="user" type="text" className={theme ? "input-text-dark" : "input"} onChange={credentials.updateUserName} maxlength="60"></input>
                 </div>
                 {credentials.userNameError.isError ?
                     <span className="formError">{credentials.userNameError.message}</span>
@@ -124,7 +124,7 @@ const Login = () => {
                     <span >Contraseña: </span>
                 </div>
                 <div className="col80">
-                    <input id="password" type="password" className={theme ? "input-text-dark" : "input"} onChange={credentials.updatePassword}></input>
+                    <input id="password" type="password" className={theme ? "input-text-dark" : "input"} onChange={credentials.updatePassword} maxlength="60"></input>
                 </div>
                 {credentials.passwordError.isError ?
                     <span className="formError">{credentials.passwordError.message}</span>

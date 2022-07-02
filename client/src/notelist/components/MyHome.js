@@ -20,7 +20,7 @@ const MyHome = ()  => {
 
     const [orderDirection, setOrderDirection] = useState(ORDER_DIRECTION.Asc);
 
-    const request = useApi("/api/notes", "", {}, false);
+    const request = useApi("/notes", "", {}, false);
 
     const user = useSelector((state) => state);
 

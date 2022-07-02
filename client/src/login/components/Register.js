@@ -27,7 +27,7 @@ const Register = () => {
 
     const history = useHistory();
 
-    const request = useApi("/api/register", "", {}, false);
+    const request = useApi("/register", "", {}, false);
 
     let token;
 
@@ -140,7 +140,7 @@ const Register = () => {
                     <span >Usuario: </span>
                 </div>
                 <div className="col80">
-                    <input id="user" type="text" className={theme ? "input-text-dark" : "input"} onChange={credentials.updateUserName}></input>
+                    <input id="user" type="text" className={theme ? "input-text-dark" : "input"} onChange={credentials.updateUserName} maxlength="60"></input>
                 </div>
                 {credentials.userNameError.isError ?
                     <span className="formError">{credentials.userNameError.message}</span>
@@ -153,7 +153,7 @@ const Register = () => {
                     <span >Contraseña: </span>
                 </div>
                 <div className="col80">
-                    <input id="password" type="password" className={theme ? "input-text-dark" : "input"} onChange={credentials.updatePassword}></input>
+                    <input id="password" type="password" className={theme ? "input-text-dark" : "input"} onChange={credentials.updatePassword} maxlength="60"></input>
                 </div>
                 {credentials.passwordError.isError ?
                     <span className="formError">{credentials.passwordError.message}</span>
@@ -166,7 +166,7 @@ const Register = () => {
                     <span >Repetir contraseña: </span>
                 </div>
                 <div className="col80">
-                    <input id="password2" type="password" className={theme ? "input-text-dark" : "input"} onChange={updatePasswordCheck}></input>
+                    <input id="password2" type="password" className={theme ? "input-text-dark" : "input"} onChange={updatePasswordCheck} maxlength="60"></input>
                 </div>
                 {passwordCheckError.isError ?
                     <span className="formError">{passwordCheckError.message}</span>

@@ -90,7 +90,7 @@ fastify.get("/api", async () => {
  * Registra un nuevo usuario en el sistema. Recibe los parámetros por
  * el cuerpo del mensaje
  */
-fastify.post("/api/register", (request, reply) => {
+fastify.post(("/api/register"), (request, reply) => {
   const { username, password } = request.body;
 
   const userExists = db.get("users").find({ username }).value();

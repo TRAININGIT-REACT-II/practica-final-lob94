@@ -13,14 +13,15 @@ import Header from "./Header";
 import Modal from "./Modal";
 import { useSelector } from "react-redux/es/exports";
 import useBeforeRender from "../hooks/BeforeRender";
+import NotFound from "./NotFound";
+import ErrorBoundary from "./ErrorBoundary";
+import Modify from "../../note/context/Modify";
 
 const RouterManager = () => {
 
     const dispatch = useDispatch();
 
-    const [showModal, setShowModal] = useState(false);
-    const openModal = () => setShowModal(true);
-    const closeModal = () => setShowModal(false);
+    const [isModify, setIsModify] = useState(false);
 
     //Revisar si existe otra forma en el curso
     useBeforeRender(() => {
@@ -38,39 +39,37 @@ const RouterManager = () => {
 
     const user = useSelector( (state)  => state);
 
-    useEffect(() => {
-        setIsLoggedAux(true);
-    }, [user.isLogged]);
-
     return(
-        <Router>
-            <Header/>
-            <button onClick={openModal}>Mostrar Modal</button>
-            <Modal show={showModal} onClose={closeModal}>
-            <h3>Esto es un modal</h3>
-            <p>Aqui puedes mostrar cualquier tipo de contenido.</p>
-            </Modal>
-            <Switch>
-              <Route path="/" exact>
-                <Home/>
-              </Route>
-              <Route path="/login">
-                <Login/>
-              </Route>
-              <Route path="/signup">
-                <Register/>
-              </Route>
-              <PrivateRoute path="/home">
-                <MyHome/>
-              </PrivateRoute>
-              <PrivateRoute path="/create-note">
-                <Note/>              
-              </PrivateRoute>
-              <PrivateRoute path="/note/:id">
-                <Note/>              
-              </PrivateRoute>
-            </Switch>
-          </Router>
+      <Router>
+        <ErrorBoundary>
+          <Header/>
+          <Switch>
+            <Route path="/" exact>
+              <Home/>
+            </Route>
+            <Route path="/login">
+              <Login/>
+            </Route>
+            <Route path="/signup">
+              <Register/>
+            </Route>
+            <PrivateRoute path="/home">
+              <MyHome/>
+            </PrivateRoute>
+            <PrivateRoute path="/create-note">
+              <Note/>              
+            </PrivateRoute>
+            <PrivateRoute path="/note/:id">
+              <Modify.Provider value={{isModify, setIsModify}}>
+                <Note/>    
+              </Modify.Provider>          
+            </PrivateRoute>
+            <Route path="*">
+              <NotFound />
+            </Route>
+          </Switch>
+        </ErrorBoundary>
+      </Router>
     );
 }
 
