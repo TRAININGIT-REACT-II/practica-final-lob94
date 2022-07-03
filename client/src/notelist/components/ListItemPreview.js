@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import Theme from '../../common/context/Theme';
 import '../css/NoteList.css';
 
 const ListItemPreview = (props) => {
@@ -11,8 +13,10 @@ const ListItemPreview = (props) => {
         history.push("/note/" + object.id);
     }
 
+    const {theme, setTheme} = useContext(Theme);
+
     return (
-        <tr className="listItem" onClick={onClick} key={indexKey}>
+        <tr className={theme ? "listItemDark": "listItem"} onClick={onClick} key={indexKey}>
             <td className='listItem-Text'>
                 {object.title}
             </td>
@@ -20,10 +24,10 @@ const ListItemPreview = (props) => {
                 {object.author}
             </td>
             <td className='listItem-Text'>
-                {object.creationDate}
+                {object.createdAt}
             </td>
             <td className='listItem-Text'>
-                {object.updateDate}
+                {object.updatedAt}
             </td>
         </tr>
     );

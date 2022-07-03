@@ -37,7 +37,6 @@ const MyHome = ()  => {
 
     useEffect(() => {
         if(request.data != null){
-            console.log(request.data);
             setNotes(request.data);
         }
     }, [request.data]);
@@ -47,10 +46,10 @@ const MyHome = ()  => {
         <>
             <View.Provider value={{view, setView}}>
                 <OrderBy.Provider value={{order, setOrder, orderDirection, setOrderDirection}}>
-                    <FilterBar/>
+                    <FilterBar />
                     {view ?
-                        <NoteFormat noteList={notes}/>
-                        : <ListFormat noteList={notes}/>
+                        <NoteFormat noteList={notes} setNotes={setNotes}/>
+                        : <ListFormat noteList={notes} setNotes={setNotes}/>
 
                     }
                 </OrderBy.Provider>

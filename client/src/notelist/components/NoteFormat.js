@@ -3,9 +3,11 @@ import Theme from "../../common/context/Theme";
 import orderFunctions from "../hooks/orderFunctions";
 import NotePreview from "./NotePreview";
 
-const NoteFormat = ({noteList})  => {
+const NoteFormat = (props)  => {
 
-    const {list} = orderFunctions();
+    const {noteList, setNotes} = props;
+
+    orderFunctions(noteList, (lis) => setNotes(lis));
 
     const {theme, setTheme} = useContext(Theme);
 

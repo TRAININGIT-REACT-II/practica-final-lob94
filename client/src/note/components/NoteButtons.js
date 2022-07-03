@@ -56,10 +56,10 @@ const NoteButtons = (props) => {
             {id ?
                 <div>
                     <button className={theme ? "button-dark" : "button-light"} onClick={changeModified}>{!isModify ? "Actualizar" : "Lectura"}</button> 
-                    <button className="button-red" onClick={openModal}>Borrar nota</button>
+                    <button className={theme ? "button-red-dark" : "button-red"} onClick={openModal}>Borrar nota</button>
                     <Modal show={showModal} onClose={closeModal}>
                         <h3>¿Quiere borrarla?</h3>
-                        <button className="button-red" onClick={closeModal}>Cancelar</button> 
+                        <button className={theme ? "button-red-dark" : "button-red"} onClick={closeModal}>Cancelar</button> 
                         <button className={theme ? "button-dark" : "button-light"} onClick={deleteNote}>Confirmar</button>
                     </Modal>
                 </div>

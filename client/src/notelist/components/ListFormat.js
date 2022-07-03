@@ -1,12 +1,28 @@
 import ListItemPreview from "./ListItemPreview";
 import '../css/NoteList.css';
 import orderFunctions from "../hooks/orderFunctions";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Theme from "../../common/context/Theme";
+import useBeforeRender from "../../common/hooks/BeforeRender";
 
-const ListFormat = ({noteList})  => {
+const ListFormat = (props)  => {
 
-    const {list} = orderFunctions();
+    const{noteList, setNotes} = props;
+
+    const listAux = [];
+    noteList.map((item) => {
+        listAux.push(item);
+    });
+
+    orderFunctions(noteList, (lis) => setNotes(lis));
+
+    //useEffect(() => {
+      //  console.log(list);
+        //if(list && list != null && list.length > 0){
+          //  console.log("list" + list);
+            //setNotes(list);
+        //}
+    //}, [list]);
 
     const {theme, setTheme} = useContext(Theme);
 

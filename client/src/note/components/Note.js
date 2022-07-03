@@ -4,7 +4,7 @@ import "../css/Note.css";
 import Theme from "../../common/context/Theme";
 import useApi from "../../common/hooks/useApi";
 import { useSelector } from "react-redux/es/exports";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import NoteButtons from "./NoteButtons";
 import Modify from "../context/Modify";
 import useBeforeRender from "../../common/hooks/BeforeRender";
@@ -23,11 +23,13 @@ const Note = () => {
 
     const {theme, setTheme} = useContext(Theme);
 
-    const request = useApi("/notes", "", {}, false);
+    const request = useApi(id ? "/notes/" + id : "/notes", "", {}, false);
 
     const user = useSelector((state) => state);
 
-    const requestConsulta = useApi("/notes/" + id, "", {}, false);;
+    const requestConsulta = useApi("/notes/" + id, "", {}, false);
+
+    const history = useHistory();
 
     const updateTitle = (e) => {
         const {value} = e.target;
@@ -148,9 +150,12 @@ const Note = () => {
                 }
             </div>
 
-            <div className="row">
-                    <button className={theme ? "button-dark" : "button-light"} type="submit">{id ? "Modificar nota" : "Crear nota"}</button>
-            </div>
+            {isModify ?
+                <div className="row">
+                        <button className={theme ? "button-dark" : "button-light"} type="submit">{id ? "Modificar nota" : "Crear nota"}</button>
+                </div>
+                : <Fragment/>
+            }
         </form>
     </section> 
     );

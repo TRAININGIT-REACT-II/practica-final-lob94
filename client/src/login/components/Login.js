@@ -1,5 +1,5 @@
 import { Fragment, useContext, useEffect, useState } from "react";
-import insertCredentials from "../hooks/insertCredentials"
+import insertCredentials from "../hooks/insertCredentials";
 import "../Login.css";
 import "../../common/css/CommonCSS.css";
 import User from "../../common/context/User";
@@ -37,7 +37,6 @@ const Login = () => {
 
     useEffect(() => {
         if(request.data != null){
-            console.log("dispatch");
             setSignIn(true);
             setUserName(request.data.username);
 
@@ -47,7 +46,7 @@ const Login = () => {
 
             dispatch(login({userName: request.data.username, isLogged: true, token: request.data.token}));
 
-            history.push("/");
+            history.push("/home");
         }
     }, [request.data]);
 

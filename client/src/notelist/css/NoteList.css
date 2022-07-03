@@ -67,6 +67,16 @@ tr.listItem:hover {
     background-color: #DAF3FF;
 }
 
+.listItemDark{
+    width: 100%;
+    cursor: pointer;
+    height: 30px;
+}
+
+tr.listItemDark:hover {
+    background-color: #3d3d3d;
+}
+
 .selectOrder {
     background: white;
     overflow: hidden;
@@ -89,7 +99,7 @@ tr.listItem:hover {
 }
 
 .buttonView-dark{
-    color: white;
+    color: black;
     background-color: darkgrey;
     border: black;
     cursor: pointer;

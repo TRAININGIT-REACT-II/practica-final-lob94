@@ -3,16 +3,9 @@ import ORDER from "../../utils/ORDER";
 import ORDER_DIRECTION from "../../utils/ORDER_DIRECTION";
 import OrderBy from "../context/OrderBy";
 
-const orderFunctions = () => {
+const orderFunctions = (list, setList) => {
 
     const {order, setOrder, orderDirection, setOrderDirection} = useContext(OrderBy);
-
-    let lis = [{key: 1, title: "titulo", author: "yo", creationDate: "13/06/2022", updateDate: "13/06/2022"},
-    {key: 2, title: "titulo1", author: "yo2", creationDate: "13/06/2022", updateDate: "13/06/2022"},
-    {key: 3, title: "titulo2", author: "yo3", creationDate: "12/06/2022", updateDate: "14/06/2022"},
-    {key: 4, title: "titulo3", author: "yo4", creationDate: "11/06/2022", updateDate: "15/06/2022"}];
-
-    const [list, setList] = useState(lis);
 
     const orderAlphabeticAsc = (a, b) => {
         if(a.title < b.title){
@@ -35,40 +28,40 @@ const orderFunctions = () => {
     };
 
     const orderCreationDateAsc = (a, b) => {
-        if(a.creationDate < b.creationDate){
+        if(a.createdAt < b.createdAt){
             return -1;
         }
-        if(a.creationDate > b.creationDate){
+        if(a.createdAt > b.createdAt){
             return 1;
         }
         return 0;
     };
 
     const orderCreationDateDesc = (a, b) => {
-        if(a.creationDate > b.creationDate){
+        if(a.createdAt > b.createdAt){
             return -1;
         }
-        if(a.creationDate < b.creationDate){
+        if(a.createdAt < b.createdAt){
             return 1;
         }
         return 0;
     };
 
     const orderUpdateDateAsc = (a, b) => {
-        if(a.updateDate < b.updateDate){
+        if(a.updatedAt < b.updatedAt){
             return -1;
         }
-        if(a.updateDate > b.updateDate){
+        if(a.updatedAt > b.updatedAt){
             return 1;
         }
         return 0;
     };
 
     const orderUpdateDateDesc = (a, b) => {
-        if(a.updateDate > b.updateDate){
+        if(a.updatedAt > b.updatedAt){
             return -1;
         }
-        if(a.updateDate < b.updateDate){
+        if(a.updatedAt < b.updatedAt){
             return 1;
         }
         return 0;
@@ -109,10 +102,6 @@ const orderFunctions = () => {
         setList(listAux.sort(getFunction(order, orderDirection)));
         
     }, [order, orderDirection]);
-
-    return {
-        list: list
-    };
 
 }
 

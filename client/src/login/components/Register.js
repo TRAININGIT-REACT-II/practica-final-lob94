@@ -9,11 +9,15 @@ import { useHistory } from "react-router-dom";
 import Theme from "../../common/context/Theme";
 import useApi from "../../common/hooks/useApi";
 import ApiError from "../../common/components/ApiError";
+import { useDispatch } from "react-redux";
+import { login } from "../../actions/actionTypes";
 
 const Register = () => {
 
     const ERROR_PASSWORD_CHECK = "La contraseña no coincide";
     const ERROR_EMPTY = "Campo requerido";
+
+    const dispatch = useDispatch();
 
     const credentials = insertCredentials();
 
@@ -59,14 +63,17 @@ const Register = () => {
 
     useEffect(() => {
         if(request.data != null){
-            console.log(request.data);
+
             setSignIn(true);
             setUserName(request.data.username);
 
             localStorage.setItem("signIn", true);
             localStorage.setItem("userName", request.data.username);
             localStorage.setItem("token", request.data.token);
-            history.push("/");
+
+            dispatch(login({userName: request.data.username, isLogged: true, token: request.data.token}));
+
+            history.push("/home");
         }
     }, [request.data]);
 
@@ -120,8 +127,6 @@ const Register = () => {
             });
             errorForm = true;
         }
-
-        console.log(credentials.password, passwordcheck);
         return errorForm;
     }
 
