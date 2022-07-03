@@ -7,10 +7,10 @@ import Modify from "../context/Modify";
 import { useSelector } from "react-redux/es/exports";
 import Modal from "../../common/components/Modal";
 
-const NoteButtons = ({id}) => {
-
-    const {isModify, setIsModify} = useContext(Modify);
+const NoteButtons = (props) => {
     const {theme, setTheme} = useContext(Theme);
+
+    const {id, isModify, setIsModify, setApiError, setError} = props;
 
     const [showModal, setShowModal] = useState(false);
     const openModal = () => setShowModal(true);
@@ -42,13 +42,20 @@ const NoteButtons = ({id}) => {
             history.push("/home");
         }
 
-    }, [request.data])
+    }, [request.data]);
+
+    useEffect(() => {
+        if(request.error != null){
+            setApiError(true);
+            setError(request.error);
+        }
+    }, [request.error]);
 
     return (
         <Fragment>
             {id ?
                 <div>
-                    <button className={theme ? "button-dark" : "button-light"} onClick={changeModified}>{isModify ? "Actualizar" : "Lectura"}</button> 
+                    <button className={theme ? "button-dark" : "button-light"} onClick={changeModified}>{!isModify ? "Actualizar" : "Lectura"}</button> 
                     <button className="button-red" onClick={openModal}>Borrar nota</button>
                     <Modal show={showModal} onClose={closeModal}>
                         <h3>¿Quiere borrarla?</h3>

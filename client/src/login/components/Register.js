@@ -8,6 +8,7 @@ import User from "../../common/context/User";
 import { useHistory } from "react-router-dom";
 import Theme from "../../common/context/Theme";
 import useApi from "../../common/hooks/useApi";
+import ApiError from "../../common/components/ApiError";
 
 const Register = () => {
 
@@ -22,6 +23,8 @@ const Register = () => {
         isError : false,
         message : ""
     });  
+
+    const [apiError, setApiError] = useState(false);
 
     const {signIn, setSignIn, userName, setUserName} = useContext(User);
 
@@ -129,18 +132,25 @@ const Register = () => {
         setPasswordCheck(value);
     };
 
+    useEffect(() => {
+        if(request.error != null){
+            setApiError(true);
+        }
+    }, [request.error]);
+
     return(
     <section className={theme ? "body-dark" : "body"}>
         <div className="row rowForm">
             <h1>Registro de usuario</h1>
         </div>
+        <ApiError apiError={apiError} error={request.error}/>
         <form onSubmit={onSubmit}>
             <div className="row rowForm">
                 <div className="col20">
                     <span >Usuario: </span>
                 </div>
                 <div className="col80">
-                    <input id="user" type="text" className={theme ? "input-text-dark" : "input"} onChange={credentials.updateUserName} maxlength="60"></input>
+                    <input id="user" type="text" className={theme ? "input-text-dark" : "input"} onChange={credentials.updateUserName} maxLength="60"></input>
                 </div>
                 {credentials.userNameError.isError ?
                     <span className="formError">{credentials.userNameError.message}</span>
@@ -153,7 +163,7 @@ const Register = () => {
                     <span >Contraseña: </span>
                 </div>
                 <div className="col80">
-                    <input id="password" type="password" className={theme ? "input-text-dark" : "input"} onChange={credentials.updatePassword} maxlength="60"></input>
+                    <input id="password" type="password" className={theme ? "input-text-dark" : "input"} onChange={credentials.updatePassword} maxLength="60"></input>
                 </div>
                 {credentials.passwordError.isError ?
                     <span className="formError">{credentials.passwordError.message}</span>
@@ -166,7 +176,7 @@ const Register = () => {
                     <span >Repetir contraseña: </span>
                 </div>
                 <div className="col80">
-                    <input id="password2" type="password" className={theme ? "input-text-dark" : "input"} onChange={updatePasswordCheck} maxlength="60"></input>
+                    <input id="password2" type="password" className={theme ? "input-text-dark" : "input"} onChange={updatePasswordCheck} maxLength="60"></input>
                 </div>
                 {passwordCheckError.isError ?
                     <span className="formError">{passwordCheckError.message}</span>

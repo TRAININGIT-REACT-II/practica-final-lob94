@@ -12,8 +12,8 @@ const NoteFormat = ({noteList})  => {
     return(
         <div>
             <ul className={theme ? "rowListNote-dark" : "rowListNote"}>
-                {noteList.map((item) => {
-                    return <NotePreview object={item} key={item.key}/>
+                {noteList.map((item, index) => {
+                    return <NotePreview object={item} indexKey={index} key={index}/>
                 })}
             </ul>
         </div>

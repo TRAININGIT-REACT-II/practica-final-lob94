@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import insertCredentials from "../hooks/insertCredentials"
 import "../Login.css";
 import "../../common/css/CommonCSS.css";
@@ -9,6 +9,7 @@ import Theme from "../../common/context/Theme";
 import useApi from "../../common/hooks/useApi";
 import { login } from "../../actions/actionTypes";
 import { useDispatch } from "react-redux/es/hooks/useDispatch";
+import ApiError from "../../common/components/ApiError";
 
 const Login = () => {
 
@@ -25,6 +26,8 @@ const Login = () => {
     const request = useApi("/login", "", {}, false);
 
     const dispatch = useDispatch();
+
+    const [apiError, setApiError] = useState(false);
 
     let token;
 
@@ -101,18 +104,25 @@ const Login = () => {
         return errorForm;
     }
 
+    useEffect(() => {
+        if(request.error != null){
+            setApiError(true);
+        }
+    }, [request.error]);
+
     return(
     <section className={theme ? "body-dark" : "body"}>
         <div className="row rowForm">
             <h1>Identificación</h1>
         </div>
+        <ApiError apiError={apiError} error={request.error}/>
         <form onSubmit={onSubmit}>
             <div className="row rowForm">
                 <div className="col20">
                     <span >Usuario: </span>
                 </div>
                 <div className="col80">
-                    <input id="user" type="text" className={theme ? "input-text-dark" : "input"} onChange={credentials.updateUserName} maxlength="60"></input>
+                    <input id="user" type="text" className={theme ? "input-text-dark" : "input"} onChange={credentials.updateUserName} maxLength="60"></input>
                 </div>
                 {credentials.userNameError.isError ?
                     <span className="formError">{credentials.userNameError.message}</span>
@@ -124,7 +134,7 @@ const Login = () => {
                     <span >Contraseña: </span>
                 </div>
                 <div className="col80">
-                    <input id="password" type="password" className={theme ? "input-text-dark" : "input"} onChange={credentials.updatePassword} maxlength="60"></input>
+                    <input id="password" type="password" className={theme ? "input-text-dark" : "input"} onChange={credentials.updatePassword} maxLength="60"></input>
                 </div>
                 {credentials.passwordError.isError ?
                     <span className="formError">{credentials.passwordError.message}</span>

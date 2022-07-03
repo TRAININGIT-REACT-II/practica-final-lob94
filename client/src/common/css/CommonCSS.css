@@ -131,7 +131,7 @@ input:checked + .slider:before {
     border-radius: 34px;
 }
   
-  .slider.round:before {
+.slider.round:before {
     border-radius: 50%;
 }
 
@@ -152,4 +152,17 @@ input:checked + .slider:before {
 .light {
     background-color: white;
     color: black;
+}
+
+.apiErrorClass{
+    width: 100%;
+    color: black;
+    background: #f8d7da ;
+    background-color: #f8d7da ;
+    border-radius: 12px;
+}
+
+.apiErrorMessage{
+    margin-left: 10px;
+    color: #d9534f;
 }

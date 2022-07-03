@@ -22,8 +22,8 @@ const ListFormat = ({noteList})  => {
                     </tr>
                 </thead>
                 <tbody>
-                    {noteList.map((item) => {
-                        return <ListItemPreview object={item} key={item.key}/>
+                    {noteList.map((item, index) => {
+                        return <ListItemPreview object={item} indexKey={index} key={index}/>
                     })}
                 </tbody>
             </table>

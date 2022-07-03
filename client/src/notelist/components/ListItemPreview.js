@@ -1,7 +1,9 @@
 import { useHistory } from 'react-router-dom';
 import '../css/NoteList.css';
 
-const ListItemPreview = ({object}) => {
+const ListItemPreview = (props) => {
+
+    const {object, indexKey} = props;
 
     const history = useHistory();
 
@@ -10,7 +12,7 @@ const ListItemPreview = ({object}) => {
     }
 
     return (
-        <tr className="listItem" onClick={onClick}>
+        <tr className="listItem" onClick={onClick} key={indexKey}>
             <td className='listItem-Text'>
                 {object.title}
             </td>

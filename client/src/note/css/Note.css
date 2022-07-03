@@ -1,15 +1,21 @@
-.input-text-body{
+.input-text-dark-readonly{
     width: 90%;
-    height: 500px;
-    border: 1px solid black;
-    border-radius: 4px;
+    background-color: transparent;
+    background: transparent;
+    border: 0 none;
+    outline: none;
+    color: white;
+    resize: none;
+    margin-top: 10px;
 }
 
-.input-text-body-dark{
+.input-readonly{
     width: 90%;
-    height: 500px;
-    border: black;
-    border-radius: 4px;
-    background-color: darkgrey;
-    color: white;
+    background-color: transparent;
+    background: transparent;
+    color: black;
+    border: 0 none;
+    outline: none;
+    resize: none;
+    margin-top: 10px;
 }
